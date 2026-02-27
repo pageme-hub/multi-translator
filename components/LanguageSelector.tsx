@@ -41,7 +41,18 @@ export default function LanguageSelector({
         <Label htmlFor="input-lang-select" className="text-sm font-medium">
           원문 언어
         </Label>
-        <Select value={inputLang} onValueChange={onInputLangChange}>
+        <Select
+          value={inputLang}
+          onValueChange={(newInputLang) => {
+            onInputLangChange(newInputLang);
+            // 새 입력 언어가 출력 언어 목록에 있으면 제거
+            if (outputLangs.includes(newInputLang)) {
+              const filtered = outputLangs.filter((l) => l !== newInputLang);
+              // 출력 언어가 0개가 되면 기존 입력 언어로 대체
+              onOutputLangsChange(filtered.length > 0 ? filtered : [inputLang]);
+            }
+          }}
+        >
           <SelectTrigger id="input-lang-select" className="w-full sm:w-48">
             <SelectValue placeholder="언어 선택" />
           </SelectTrigger>
