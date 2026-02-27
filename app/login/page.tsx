@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader2 } from "lucide-react";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default function LoginPage() {
   const [userId, setUserId] = useState("");
@@ -56,7 +57,10 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-muted/40 px-4 py-8">
+    <div className="relative flex min-h-screen flex-col items-center justify-center gap-4 bg-muted/40 px-4 py-8">
+      <div className="absolute top-4 right-4">
+        <ThemeToggle />
+      </div>
       <Card className="w-full max-w-sm">
         <CardHeader className="space-y-1 text-center">
           <div className="flex justify-center mb-2">

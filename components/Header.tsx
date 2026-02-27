@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 interface HeaderProps {
   userId: string | null;
@@ -43,6 +44,7 @@ export default function Header({ userId }: HeaderProps) {
               로그인
             </Button>
           )}
+          <ThemeToggle />
         </div>
       </div>
     </header>
