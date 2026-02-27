@@ -1,7 +1,7 @@
 import { Country } from "@/types";
 
 export const COUNTRIES: Country[] = [
-  { code: "INTL", name: "전세계", englishName: "International" },
+  { code: "INTL", name: "미선택", englishName: "" },
   { code: "KR", name: "한국", englishName: "South Korea" },
   { code: "JP", name: "일본", englishName: "Japan" },
   { code: "CN", name: "중국", englishName: "China" },
