@@ -9,6 +9,7 @@ export const LANGUAGES: Language[] = [
   { code: "zh-CN", name: "중국어 간체", englishName: "Chinese Simplified" },
   { code: "kn", name: "칸나다어", englishName: "Kannada" },
   { code: "bn", name: "벵골어", englishName: "Bengali" },
+  { code: "ml", name: "말라얄람어", englishName: "Malayalam" },
 ];
 
 export const LANGUAGE_MAP: Record<string, Language> = Object.fromEntries(
