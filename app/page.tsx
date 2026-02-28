@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { ParsedTranslation } from "@/types";
 import { DEFAULT_INPUT_LANG, DEFAULT_OUTPUT_LANGS } from "@/constants/languages";
-import { DEFAULT_RECIPIENT_COUNTRY, DEFAULT_RECIPIENT_GENDER } from "@/constants/countries";
+import { DEFAULT_RECIPIENT_COUNTRY, DEFAULT_RECIPIENT_GENDER, DEFAULT_RECIPIENT_ROLE } from "@/constants/countries";
 import { Save, Settings } from "lucide-react";
 
 /** 스트리밍 중 완성된 [Tag]\n...\n 구간만 파싱 */
@@ -35,6 +35,7 @@ export default function HomePage() {
   const [outputLangs, setOutputLangs] = useState<string[]>(DEFAULT_OUTPUT_LANGS);
   const [recipientCountry, setRecipientCountry] = useState(DEFAULT_RECIPIENT_COUNTRY);
   const [recipientGender, setRecipientGender] = useState(DEFAULT_RECIPIENT_GENDER);
+  const [recipientRole, setRecipientRole] = useState(DEFAULT_RECIPIENT_ROLE);
   const [parsed, setParsed] = useState<ParsedTranslation | null>(null);
   const [streamingRaw, setStreamingRaw] = useState("");
   const [isTranslating, setIsTranslating] = useState(false);
@@ -60,6 +61,7 @@ export default function HomePage() {
         const data = await res.json();
         if (data.recipient_country) setRecipientCountry(data.recipient_country);
         if (data.recipient_gender) setRecipientGender(data.recipient_gender);
+        if (data.recipient_role) setRecipientRole(data.recipient_role);
         if (data.output_langs && data.output_langs.length > 0) setOutputLangs(data.output_langs);
       }
     } catch {
@@ -87,6 +89,7 @@ export default function HomePage() {
           user_id: userId,
           recipient_country: recipientCountry,
           recipient_gender: recipientGender,
+          recipient_role: recipientRole,
           output_langs: outputLangs,
         }),
       });
@@ -126,6 +129,7 @@ export default function HomePage() {
           output_langs: outputLangs,
           recipient_country: recipientCountry,
           recipient_gender: recipientGender,
+          recipient_role: recipientRole,
         }),
       });
 
@@ -185,8 +189,10 @@ export default function HomePage() {
             <RecipientSelector
               country={recipientCountry}
               gender={recipientGender}
+              role={recipientRole}
               onCountryChange={setRecipientCountry}
               onGenderChange={setRecipientGender}
+              onRoleChange={setRecipientRole}
             />
             <LanguageSelector
               inputLang={inputLang}

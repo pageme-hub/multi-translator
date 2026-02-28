@@ -13,6 +13,7 @@ export interface Country {
 export interface AccountSettings {
   recipient_country: string | null;
   recipient_gender: string | null;
+  recipient_role: string | null;
   output_langs: string[] | null;
 }
 
@@ -27,6 +28,7 @@ export interface TranslateRequest {
   output_langs: string[];
   recipient_country: string;
   recipient_gender: string;
+  recipient_role: string;
 }
 
 export interface TranslateResponse {
@@ -46,6 +48,7 @@ export interface SaveSettingsRequest {
   user_id: string;
   recipient_country: string;
   recipient_gender: string;
+  recipient_role: string;
   output_langs: string[];
 }
 

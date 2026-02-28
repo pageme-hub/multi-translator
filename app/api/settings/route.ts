@@ -25,13 +25,14 @@ export async function GET(request: NextRequest) {
 
     const { data: settings } = await supabase
       .from("multi_translator_account_settings")
-      .select("recipient_country, recipient_gender, output_langs")
+      .select("recipient_country, recipient_gender, recipient_role, output_langs")
       .eq("account_id", account.id)
       .single();
 
     return NextResponse.json({
       recipient_country: settings?.recipient_country ?? null,
       recipient_gender: settings?.recipient_gender ?? null,
+      recipient_role: settings?.recipient_role ?? null,
       output_langs: settings?.output_langs ?? null,
     });
   } catch (error) {
@@ -43,7 +44,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body: SaveSettingsRequest = await request.json();
-    const { user_id, recipient_country, recipient_gender, output_langs } = body;
+    const { user_id, recipient_country, recipient_gender, recipient_role, output_langs } = body;
 
     if (!user_id) {
       return NextResponse.json({ error: "user_id가 필요합니다." }, { status: 400 });
@@ -68,6 +69,7 @@ export async function POST(request: NextRequest) {
           account_id: account.id,
           recipient_country,
           recipient_gender,
+          recipient_role,
           output_langs,
           updated_at: new Date().toISOString(),
         },

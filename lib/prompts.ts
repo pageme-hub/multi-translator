@@ -4,6 +4,7 @@ import path from "path";
 interface SystemPromptParams {
   targetCountry: string;
   recipientGender: string;
+  recipientRole: string;
 }
 
 export interface TranslatePromptParams {
@@ -23,16 +24,24 @@ async function readPromptFile(filename: string): Promise<string> {
   return readFile(filePath, "utf-8");
 }
 
-export async function buildSystemPrompt({ targetCountry, recipientGender }: SystemPromptParams): Promise<string> {
-  const genderNote =
-    recipientGender === "male"
-      ? '수신자가 남성이므로 "Brother"를 기본 호칭으로 사용하세요.'
-      : recipientGender === "female"
-      ? '수신자가 여성이므로 "Sister"를 기본 호칭으로 사용하세요.'
-      : "성별 정보가 없으므로 성별 특정 호칭 없이 중립적이고 존중하는 어조를 유지하세요.";
+function buildRecipientNote(role: string, gender: string): string {
+  if (role === "pastor") {
+    return '수신자는 목회자(목사님)입니다. 영어로는 "Pastor", 한국어로는 "목사님"으로 호칭하세요.';
+  }
+  // 성도 또는 미선택
+  if (gender === "male") {
+    return '수신자는 성도(남성)입니다. 영어로는 "Brother"를 기본 호칭으로 사용하세요.';
+  }
+  if (gender === "female") {
+    return '수신자는 성도(여성)입니다. 영어로는 "Sister"를 기본 호칭으로 사용하세요.';
+  }
+  return "수신자 정보가 없으므로 성별·직책 특정 호칭 없이 중립적이고 존중하는 어조를 유지하세요.";
+}
 
+export async function buildSystemPrompt({ targetCountry, recipientGender, recipientRole }: SystemPromptParams): Promise<string> {
+  const recipientNote = buildRecipientNote(recipientRole, recipientGender);
   const template = await readPromptFile("system.txt");
-  return fill(template, { targetCountry, genderNote });
+  return fill(template, { targetCountry, recipientNote });
 }
 
 export async function buildTranslatePrompt({

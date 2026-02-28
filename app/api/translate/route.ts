@@ -9,7 +9,7 @@ import { COUNTRY_MAP, COUNTRIES } from "@/constants/countries";
 
 export async function POST(request: NextRequest) {
   const body: TranslateRequest = await request.json();
-  const { user_id, text, input_lang, output_langs, recipient_country, recipient_gender } = body;
+  const { user_id, text, input_lang, output_langs, recipient_country, recipient_gender, recipient_role } = body;
 
   if (!text || text.trim().length === 0) {
     return new Response(JSON.stringify({ error: "번역할 텍스트를 입력해주세요." }), {
@@ -81,6 +81,7 @@ export async function POST(request: NextRequest) {
     buildSystemPrompt({
       targetCountry,
       recipientGender: recipient_gender ?? "unspecified",
+      recipientRole: recipient_role ?? "unspecified",
     }),
     buildTranslatePrompt({
       inputLangName,
