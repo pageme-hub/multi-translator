@@ -106,6 +106,12 @@ export default function HomePage() {
     }
   }
 
+  function handleClear() {
+    setInputText("");
+    setParsed(null);
+    setStreamingRaw("");
+  }
+
   async function handleTranslate() {
     if (!userId) {
       router.push("/login");
@@ -226,6 +232,7 @@ export default function HomePage() {
               value={inputText}
               onChange={setInputText}
               onTranslate={handleTranslate}
+              onClear={handleClear}
               isLoading={isTranslating}
             />
           </section>
