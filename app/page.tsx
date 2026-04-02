@@ -14,6 +14,8 @@ import { ParsedTranslation } from "@/types";
 import { DEFAULT_INPUT_LANG, DEFAULT_OUTPUT_LANGS } from "@/constants/languages";
 import { DEFAULT_RECIPIENT_COUNTRY, DEFAULT_RECIPIENT_GENDER, DEFAULT_RECIPIENT_ROLE } from "@/constants/countries";
 import { Save, Settings } from "lucide-react";
+import AdBanner from "@/components/AdBanner";
+import AdInterstitial from "@/components/AdInterstitial";
 
 /** 스트리밍 중 완성된 [Tag]\n...\n 구간만 파싱 */
 function parseTranslationPartial(raw: string): ParsedTranslation {
@@ -272,7 +274,17 @@ export default function HomePage() {
         </div>
       </main>
 
-      <footer className="mt-auto border-t border-border bg-background/80 py-4">
+      {/* 전면 광고 (매일 첫 접속) */}
+      <AdInterstitial />
+
+      {/* 하단 배너 광고 */}
+      <div className="border-t border-border bg-background/80 py-3 px-4">
+        <div className="mx-auto max-w-6xl">
+          <AdBanner />
+        </div>
+      </div>
+
+      <footer className="border-t border-border bg-background/80 py-4">
         <div className="mx-auto flex max-w-6xl items-center justify-center gap-3 px-4 flex-wrap">
           <span className="text-sm text-muted-foreground">불편사항, 기능 제안 등은 여기로 :</span>
           <a

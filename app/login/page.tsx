@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader2 } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { supabase } from "@/lib/supabase/client";
 
 export default function LoginPage() {
   const [userId, setUserId] = useState("");
@@ -44,6 +45,18 @@ export default function LoginPage() {
 
       if (!res.ok) {
         setError(data.error ?? "로그인에 실패했습니다.");
+        return;
+      }
+
+      // 익명 로그인 수행 (RLS용)
+      const { error: authError } = await supabase.auth.signInAnonymously({
+        options: {
+          data: { custom_id: userId.trim() },
+        },
+      });
+
+      if (authError) {
+        setError("인증에 실패했습니다.");
         return;
       }
 
