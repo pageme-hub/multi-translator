@@ -31,7 +31,7 @@ export default function AdBanner() {
         ref={adRef}
         className="adsbygoogle"
         style={{ display: "block" }}
-        data-ad-client="ca-pub-7134217679059595"
+        data-ad-client="ca-pub-6228549617692783"
         data-ad-slot=""
         data-ad-format="auto"
         data-full-width-responsive="true"

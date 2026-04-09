@@ -26,7 +26,7 @@ export default function RootLayout({
         </ThemeProvider>
         <Script
           async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7134217679059595"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6228549617692783"
           crossOrigin="anonymous"
           strategy="afterInteractive"
         />
